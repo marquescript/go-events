@@ -1,0 +1,26 @@
+
+### Variables
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHBpcmUiOjE3NDI4MzczNTgsInN1YiI6IjEifQ.xmu5IpT6KuG0egjQSJVDyFGrDTQn2FIvRQV9pbeCBcY
+@baseUrl = http://localhost:8080
+
+POST {{baseUrl}}/events
+Content-Type: application/json
+
+{
+	"description": "Evento de teste 5",
+	"address": "Rua Teste, 123",
+	"date": "2025-03-20",
+	"userId": "1"
+}
+
+###
+
+GET {{baseUrl}}/events/10
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+
+GET {{baseUrl}}/events
+Content-Type: application/json
+Authorization: Bearer {{token}}

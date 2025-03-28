@@ -1,0 +1,187 @@
+basePath: /
+definitions:
+  dto.EventDTO:
+    properties:
+      address:
+        type: string
+      date:
+        type: string
+      description:
+        type: string
+      userId:
+        type: string
+    type: object
+  dto.JWTOutput:
+    properties:
+      access_token:
+        type: string
+      payload:
+        $ref: '#/definitions/dto.JWTPayload'
+    type: object
+  dto.JWTPayload:
+    properties:
+      sub:
+        type: string
+    type: object
+  dto.UserDTO:
+    properties:
+      email:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
+    type: object
+  dto.UserMinDTO:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    type: object
+  entity.Event:
+    properties:
+      address:
+        type: string
+      date:
+        type: string
+      description:
+        type: string
+      id:
+        type: integer
+      userId:
+        type: integer
+    type: object
+  handlers.Error:
+    properties:
+      message:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: API para gerenciamento de eventos
+  title: Go Events API
+  version: "1.0"
+paths:
+  /events:
+    get:
+      consumes:
+      - application/json
+      description: Find all events
+      parameters:
+      - description: page number
+        in: query
+        name: page
+        type: string
+      - description: limit
+        in: query
+        name: limit
+        type: string
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            items:
+              $ref: '#/definitions/entity.Event'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handlers.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handlers.Error'
+      security:
+      - ApiKeyAuth: []
+      summary: FindAllEvents
+      tags:
+      - events
+    post:
+      consumes:
+      - application/json
+      description: Create a new event
+      parameters:
+      - description: event request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.EventDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+        "400":
+          description: Invalid request body or parameters
+          schema:
+            type: string
+        "500":
+          description: Internal server error
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: CreateEvent
+      tags:
+      - events
+  /sign-in:
+    post:
+      consumes:
+      - application/json
+      description: Get jwt
+      parameters:
+      - description: user credentials
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.UserMinDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.JWTOutput'
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      summary: GetJWT
+      tags:
+      - users
+  /users:
+    post:
+      consumes:
+      - application/json
+      description: Create user
+      parameters:
+      - description: user request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.UserDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handlers.Error'
+      summary: CreateUser
+      tags:
+      - users
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
