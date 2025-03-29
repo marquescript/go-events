@@ -1,0 +1,25 @@
+
+services:
+  go-events:
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+    volumes:
+      - .:/app
+    
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-go-events
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: go_events
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:
