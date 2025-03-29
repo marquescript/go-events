@@ -1,9 +1,8 @@
 package service
 
 import (
-	"errors"
-
 	"github.com/marquescript/go-events/internal/entity"
+	internalErrors "github.com/marquescript/go-events/internal/errors"
 	"github.com/marquescript/go-events/internal/infra/database"
 )
 
@@ -35,7 +34,7 @@ func (s *UserService) Create(name, email, password string) error {
 func (s *UserService) FindByID(id int64) (*entity.User, error) {
 	user, err := s.UserDB.FindByID(id)
 	if err != nil {
-		return nil, errors.New("user not found")
+		return nil, internalErrors.NewNotFoundError("User not found")
 	}
 	return user, nil
 }
@@ -43,7 +42,7 @@ func (s *UserService) FindByID(id int64) (*entity.User, error) {
 func (s *UserService) FindByEmail(email string) (*entity.User, error) {
 	user, err := s.UserDB.FindByEmail(email)
 	if err != nil {
-		return nil, errors.New("user not found")
+		return nil, internalErrors.NewNotFoundError("User not found")
 	}
 	return user, nil
 }

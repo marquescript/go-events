@@ -56,7 +56,7 @@ func (s *EventService) FindAll(userID int64, page, limit int, sort string) ([]*e
 func (s *EventService) Update(userId, id int64, description, address string, date time.Time) error {
 	event, err := s.EventDB.FindByID(userId, id)
 	if err != nil {
-		return errors.New("event not found")
+		return internalErrors.NewNotFoundError("Event not found")
 	}
 	if event.UserID != userId {
 		return errors.New("this event does not belong to the user")
@@ -79,7 +79,7 @@ func (s *EventService) Update(userId, id int64, description, address string, dat
 func (s *EventService) Delete(userId, id int64) error {
 	event, err := s.EventDB.FindByID(userId, id)
 	if err != nil {
-		return errors.New("event not found")
+		return internalErrors.NewNotFoundError("Event not found")
 	}
 	if event.UserID != userId {
 		return errors.New("this event does not belong to the user")
