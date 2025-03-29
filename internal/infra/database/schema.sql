@@ -1,3 +1,5 @@
+CREATE DATABASE IF NOT EXISTS go_events;
+
 CREATE TABLE IF NOT EXISTS users (
     id int auto_increment PRIMARY KEY,
     name VARCHAR(255) NOT NULL,

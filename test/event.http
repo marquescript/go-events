@@ -1,6 +1,6 @@
 
 ### Variables
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHBpcmUiOjE3NDI4MzczNTgsInN1YiI6IjEifQ.xmu5IpT6KuG0egjQSJVDyFGrDTQn2FIvRQV9pbeCBcY
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHBpcmUiOjE3NDMxMjY4NTAsInN1YiI6IjEifQ.Z02IRKCtTYpm1jzv-kO6op2Jjscm6_dIF1sqyon2DtE
 @baseUrl = http://localhost:8080
 
 POST {{baseUrl}}/events
@@ -15,7 +15,7 @@ Content-Type: application/json
 
 ###
 
-GET {{baseUrl}}/events/10
+GET {{baseUrl}}/events/1
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
