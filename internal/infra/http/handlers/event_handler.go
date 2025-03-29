@@ -68,6 +68,21 @@ func (h *EventHandler) CreateEvent(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusCreated)
 }
 
+// FindEvent godoc
+//
+//	@Summary		FindEvent
+//	@Description	Find an event by ID
+//	@Tags			events
+//	@Accept			json
+//	@Produce		json
+//	@Param			id	path		string	true	"Event ID"
+//	@Success		200	{object}	dto.EventDTO
+//	@Failure		400	{string}	string	"Invalid ID"
+//	@Failure		401	{string}	string	"Unauthorized"
+//	@Failure		500	{string}	string	"Internal server error"
+//	@Router			/events/{id} [get]
+//
+//	@Security		ApiKeyAuth
 func (h *EventHandler) FindEvent(w http.ResponseWriter, r *http.Request) {
 	userCtx, ok := r.Context().Value(middlewares.UserContextKey).(middlewares.UserContext)
 	if !ok {
@@ -141,6 +156,22 @@ func (h *EventHandler) FindAllEvents(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(events)
 }
 
+// UpdateEvent godoc
+//
+//	@Summary		UpdateEvent
+//	@Description	Update an existing event
+//	@Tags			events
+//	@Accept			json
+//	@Produce		json
+//	@Param			eventId	path	string				true	"Event ID"
+//	@Param			request	body	dto.EventUpdateDTO	true	"Event update request"
+//	@Success		204
+//	@Failure		400	{string}	string	"Invalid request body or parameters"
+//	@Failure		401	{string}	string	"Unauthorized"
+//	@Failure		500	{string}	string	"Internal server error"
+//	@Router			/events/{eventId} [put]
+//
+//	@Security		ApiKeyAuth
 func (h *EventHandler) UpdateEvent(w http.ResponseWriter, r *http.Request) {
 	userCtx, ok := r.Context().Value(middlewares.UserContextKey).(middlewares.UserContext)
 	if !ok {
@@ -177,6 +208,21 @@ func (h *EventHandler) UpdateEvent(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusNoContent)
 }
 
+// DeleteEvent godoc
+//
+//	@Summary		DeleteEvent
+//	@Description	Delete an event by ID
+//	@Tags			events
+//	@Accept			json
+//	@Produce		json
+//	@Param			eventId	path	string	true	"Event ID"
+//	@Success		204
+//	@Failure		400	{string}	string	"Invalid ID"
+//	@Failure		401	{string}	string	"Unauthorized"
+//	@Failure		500	{string}	string	"Internal server error"
+//	@Router			/events/{eventId} [delete]
+//
+//	@Security		ApiKeyAuth
 func (h *EventHandler) DeleteEvent(w http.ResponseWriter, r *http.Request) {
 	userCtx, ok := r.Context().Value(middlewares.UserContextKey).(middlewares.UserContext)
 	if !ok {
